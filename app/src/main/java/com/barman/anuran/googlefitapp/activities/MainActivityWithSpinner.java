@@ -176,11 +176,8 @@ public class MainActivityWithSpinner extends AppCompatActivity {
                     .enableAutoManage(this, 0, new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(ConnectionResult result) {
-                            Snackbar.make(
-                                    MainActivityWithSpinner.this.findViewById(R.id.main_activity_view),
-                                    "Exception while connecting to Google Play services: " +
-                                            result.getErrorMessage(),
-                                    Snackbar.LENGTH_INDEFINITE).show();
+                           Toast.makeText(MainActivityWithSpinner.this,"Exception while connecting to Google Play services: " +
+                                   result.getErrorMessage(),Toast.LENGTH_SHORT).show();
                         }
                     })
                     .build();

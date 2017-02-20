@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.barman.anuran.googlefitapp.R;
 import com.barman.anuran.googlefitapp.graphFragment.CaloriesGraph;
@@ -80,11 +81,8 @@ public class ThreeGraphActivity extends AppCompatActivity {
                     .enableAutoManage(this, 0, new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(ConnectionResult result) {
-                            Snackbar.make(
-                                    ThreeGraphActivity.this.findViewById(R.id.main_activity_view),
-                                    "Exception while connecting to Google Play services: " +
-                                            result.getErrorMessage(),
-                                    Snackbar.LENGTH_INDEFINITE).show();
+                            Toast.makeText(ThreeGraphActivity.this,"Exception while connecting to Google Play services: " +
+                                    result.getErrorMessage(),Toast.LENGTH_SHORT).show();
                         }
                     })
                     .build();

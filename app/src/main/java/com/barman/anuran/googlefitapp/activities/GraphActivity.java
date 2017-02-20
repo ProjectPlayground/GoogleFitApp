@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.barman.anuran.googlefitapp.R;
 import com.barman.anuran.googlefitapp.graphFragment.CaloriesGraph;
@@ -116,11 +117,7 @@ public class GraphActivity extends AppCompatActivity {
                     .enableAutoManage(this, 0, new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(ConnectionResult result) {
-                            Snackbar.make(
-                                    GraphActivity.this.findViewById(R.id.main_activity_view),
-                                    "Exception while connecting to Google Play services: " +
-                                            result.getErrorMessage(),
-                                    Snackbar.LENGTH_INDEFINITE).show();
+
                         }
                     })
                     .build();
