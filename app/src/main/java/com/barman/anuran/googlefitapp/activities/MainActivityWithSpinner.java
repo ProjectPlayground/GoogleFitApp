@@ -219,9 +219,6 @@ public class MainActivityWithSpinner extends AppCompatActivity {
             if (grantResults.length <= 0) {
                 Log.i(TAG, "User interaction was cancelled.");
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,fragments);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
                 buildFitnessClient();
             } else {
 
