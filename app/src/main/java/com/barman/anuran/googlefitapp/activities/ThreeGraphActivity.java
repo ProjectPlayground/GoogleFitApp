@@ -8,12 +8,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.barman.anuran.googlefitapp.R;
 import com.barman.anuran.googlefitapp.graphFragment.CaloriesGraph;
+import com.barman.anuran.googlefitapp.graphFragment.CaloriesGraphMonth;
 import com.barman.anuran.googlefitapp.graphFragment.DistanceGraph;
 import com.barman.anuran.googlefitapp.graphFragment.StepGraph;
+import com.barman.anuran.googlefitapp.graphFragment.StepGraphMonth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,6 +32,7 @@ public class ThreeGraphActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     public static GoogleApiClient mClient;
+    ToggleButton toggleButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +40,12 @@ public class ThreeGraphActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.three_graph_layout);
+        toggleButton=(ToggleButton)findViewById(R.id.day_month_toggle);
         mClient=null;
         buildFitnessClient();
         fragmentManager=getSupportFragmentManager();
+
+
     }
 
     public void buildFitnessClient() {
@@ -64,6 +72,33 @@ public class ThreeGraphActivity extends AppCompatActivity {
                                     fragmentTransaction=fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.distanceGraphContainer,new DistanceGraph());
                                     fragmentTransaction.commit();
+
+                                    toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                            if(isChecked){
+                                                fragmentTransaction=fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.stepGraphContainer,new StepGraph());
+                                                fragmentTransaction.commit();
+
+                                                fragmentTransaction=fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.caloriesGraphContainer,new CaloriesGraph());
+                                                fragmentTransaction.commit();
+
+                                                fragmentTransaction=fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.distanceGraphContainer,new DistanceGraph());
+                                                fragmentTransaction.commit();
+                                            }else{
+                                                fragmentTransaction=fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.stepGraphContainer,new StepGraphMonth());
+                                                fragmentTransaction.commit();
+
+                                                fragmentTransaction=fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.caloriesGraphContainer,new CaloriesGraphMonth());
+                                                fragmentTransaction.commit();
+                                            }
+                                        }
+                                    });
                                 }
 
                                 @Override
