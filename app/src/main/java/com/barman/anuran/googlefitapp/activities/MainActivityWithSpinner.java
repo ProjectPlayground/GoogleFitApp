@@ -24,8 +24,11 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.barman.anuran.googlefitapp.fragments.CaloriFragment;
+import com.barman.anuran.googlefitapp.fragments.CaloriFragmentMonth;
 import com.barman.anuran.googlefitapp.fragments.DistanceFragment;
 import com.barman.anuran.googlefitapp.R;
+import com.barman.anuran.googlefitapp.fragments.DistanceFragmentMonth;
+import com.barman.anuran.googlefitapp.fragments.StepFragmentMonth;
 import com.barman.anuran.googlefitapp.utils.SharedPrefManager;
 import com.barman.anuran.googlefitapp.fragments.StepFragment;
 import com.barman.anuran.googlefitapp.fragments.TodayFragment;
@@ -57,7 +60,7 @@ public class MainActivityWithSpinner extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private OnDataPointListener mListener;
-    ToggleButton toggleButton;
+    ToggleButton toggleButton,dayMonthToggle;
     TextView toggleText;
     boolean stepRec,disRec,stepRecStop,disRecStop;
     @Override
@@ -68,6 +71,7 @@ public class MainActivityWithSpinner extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_with_spinner);
         spinner=(Spinner)findViewById(R.id.spinner);
+        dayMonthToggle=(ToggleButton)findViewById(R.id.day_month_toggle);
         toggleText=(TextView)findViewById(R.id.toggleText);
         toggleButton=(ToggleButton)findViewById(R.id.toggleButton1);
         if(new SharedPrefManager(MainActivityWithSpinner.this).getTracking()){
@@ -103,26 +107,75 @@ public class MainActivityWithSpinner extends AppCompatActivity {
             buildFitnessClient();
         }
 
+        dayMonthToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switch (spinner.getSelectedItemPosition()){
+                        case 1:
+                            fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container,new StepFragment());
+                            fragmentTransaction.commit();
+                            break;
+                        case 2:
+                            fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container,new CaloriFragment());
+                            fragmentTransaction.commit();
+                            break;
+                        case 3:
+                            fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container,new DistanceFragment());
+                            fragmentTransaction.commit();
+                            break;
+                    }
+                }else{
+                    switch (spinner.getSelectedItemPosition()){
+                        case 1:
+                            fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container,new StepFragmentMonth());
+                            fragmentTransaction.commit();
+                            break;
+                        case 2:
+                            fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container,new CaloriFragmentMonth());
+                            fragmentTransaction.commit();
+                            break;
+                        case 3:
+                            fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container,new DistanceFragmentMonth());
+                            fragmentTransaction.commit();
+                            break;
+                    }
+                }
+            }
+        });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
+                        dayMonthToggle.setVisibility(View.GONE);
                         fragmentTransaction=fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.container,new TodayFragment());
                         fragmentTransaction.commit();
                         break;
                     case 1:
+                        dayMonthToggle.setVisibility(View.VISIBLE);
+                        dayMonthToggle.setChecked(true);
                         fragmentTransaction=fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.container,new StepFragment());
                         fragmentTransaction.commit();
                         break;
                     case 2:
+                        dayMonthToggle.setVisibility(View.VISIBLE);
+                        dayMonthToggle.setChecked(true);
                         fragmentTransaction=fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.container,new CaloriFragment());
                         fragmentTransaction.commit();
                         break;
                     case 3:
+                        dayMonthToggle.setVisibility(View.VISIBLE);
+                        dayMonthToggle.setChecked(true);
                         fragmentTransaction=fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.container,new DistanceFragment());
                         fragmentTransaction.commit();
