@@ -41,11 +41,18 @@ public class ThreeGraphActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.three_graph_layout);
         toggleButton=(ToggleButton)findViewById(R.id.day_month_toggle);
+        toggleButton.setChecked(true);
         mClient=null;
         buildFitnessClient();
         fragmentManager=getSupportFragmentManager();
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toggleButton.setChecked(true);
     }
 
     public void buildFitnessClient() {
