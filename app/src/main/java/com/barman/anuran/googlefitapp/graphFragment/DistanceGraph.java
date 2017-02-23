@@ -1,5 +1,6 @@
 package com.barman.anuran.googlefitapp.graphFragment;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -145,6 +146,8 @@ public class DistanceGraph extends Fragment {
 
             LineDataSet lineDataSet=new LineDataSet(dataDistance,"Distance (in KM)");
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setColor(Color.parseColor("#d81ecd"));
+            lineDataSet.setCircleColor(Color.parseColor("#53014e"));
             List<ILineDataSet> dataSets=new ArrayList<>();
             dataSets.add(lineDataSet);
             lineData=new LineData(dataSets);

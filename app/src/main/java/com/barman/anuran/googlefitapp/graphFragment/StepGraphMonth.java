@@ -1,5 +1,6 @@
 package com.barman.anuran.googlefitapp.graphFragment;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -127,6 +128,7 @@ public class StepGraphMonth extends Fragment {
             }
             LineDataSet lineDataSet=new LineDataSet(dataSteps,"Steps");
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setCircleColor(Color.parseColor("#015a78"));
             List<ILineDataSet> dataSets=new ArrayList<>();
             dataSets.add(lineDataSet);
             lineData=new LineData(dataSets);

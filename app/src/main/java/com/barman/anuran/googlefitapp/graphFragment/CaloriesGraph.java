@@ -1,5 +1,6 @@
 package com.barman.anuran.googlefitapp.graphFragment;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -144,6 +145,8 @@ public class CaloriesGraph extends Fragment {
 
             LineDataSet lineDataSet=new LineDataSet(dataCalories,"Calories (in Cal)");
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setColor(Color.parseColor("#e89903"));
+            lineDataSet.setCircleColor(Color.parseColor("#f05029"));
             List<ILineDataSet> dataSets=new ArrayList<>();
             dataSets.add(lineDataSet);
             lineData=new LineData(dataSets);
